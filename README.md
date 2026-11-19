@@ -1,48 +1,49 @@
 # HarvestLink GTA — Hyper-Local Surplus Food Rescue & Pantry Router
 
+**Status:** Portfolio / engineering demo project. Seeded with fictional Toronto pilot data and not currently connected to real food donors or shelters.
+
 Walking along the **Yonge–Dundas Square, Victoria Street, and Downtown Toronto core**, visible food insecurity and unhoused neighbors sit steps away from campus events, cafes, and independent grocers discarding untouched catered trays and end-of-day surplus.
 
-**HarvestLink GTA** closes that last-mile coordination gap within a 5 km Downtown Toronto / Dundas corridor radius—matching verified commercial and campus event food surplus with local drop-in centres, community fridges, and student food pantries before food spoils.
+**HarvestLink GTA** is a full-stack prototype exploring how hyper-local coordination could close that last-mile gap within a 5 km Downtown Toronto / Dundas corridor radius—matching commercial and campus event surplus with local drop-in centres, community fridges, and student food pantries before food spoils.
 
-## Engineering & Regulatory Architecture
+---
 
-* **Ontario *Donation of Food Act, 1994* & DineSafe Guardrails (`Pydantic` + `FastAPI`):** Enforces strict intake validation—rejecting unverified residential leftovers and automatically blocking perishable listings with fewer than 2 hours remaining before their cold-chain/best-before cutoff.
-* **Constraint-Based Geospatial Matching Engine (`Python` + `PostgreSQL`):** Pairs surplus food batches with receiving shelters/pantries using Haversine proximity routing, refrigeration compatibility checks, and dietary tag alignment (`Vegetarian`, `Halal`, `Nut-Free`, `Shelf-Stable`).
-* **Chain-of-Custody Audit Trail (`SQLAlchemy`):** Tracks every transfer across four immutable states (`AVAILABLE -> CLAIMED -> PICKED_UP -> DELIVERED`) with food-safety packaging verification timestamps.
-* **Mobile-First Volunteer & Coordinator Dispatch UI (`React` + `TypeScript` + `Tailwind CSS`):** Enables donors to log surplus batches, pantries to filter compatible incoming food, and volunteer couriers to claim nearby Dundas/Downtown pickups.
-* **Automated Test Coverage (`pytest`):** Unit tests verifying expiry cutoffs, dietary/cold-chain filtering, and Haversine distance ranking.
+## Context & Existing Ecosystem
+
+Large-scale food recovery in Toronto is already led by established organizations such as **Second Harvest** (and its **FoodRescue.ca** platform) and **Feed It Forward**. 
+
+This project was built as a learning exercise in geospatial matching, state-machine workflows, and domain-informed input validation—focused specifically on small-batch, same-day campus and neighborhood surplus (e.g., untouched event catering trays) rather than commercial grocery logistics.
+
+---
+
+## What’s Real vs. Simulated
+
+* **Status & Data (Simulated):** Pre-seeded with realistic fictional donor and pantry profiles around Yonge–Dundas and TMU (`backend/seed.py`) so the dispatch workflow can be tested out of the box[cite: 10].
+* **Geospatial Routing (Simulated / Straight-Line):** Calculates Haversine great-circle distance (`backend/app/matching.py`) rather than live street-network walking, transit, or driving routes[cite: 17].
+* **Food-Safety & Liability Guardrails (Modeled, Not Legal Compliance):** Input rules in `backend/app/schemas.py` are *informed by* Ontario's *Donation of Food Act, 1994* (S.O. 1994, c. 19) and Toronto Public Health DineSafe concepts—requiring sealed/commercial-source attestation and enforcing a minimum 2-hour window before expiration[cite: 18]. This is a technical modeling exercise, not legal or public-health certification.
+* **Backend, State Machine & Tests (Real Working Code):** Full FastAPI REST API, SQLAlchemy persistence, four-stage chain-of-custody tracking (`AVAILABLE -> CLAIMED -> PICKED_UP -> DELIVERED`)[cite: 19], React + TypeScript dispatch UI[cite: 9, 12], and automated `pytest` integration tests[cite: 15].
+
+---
+
+## Dispatch Board Preview
+
+*(Tip: Run the app locally, take a screenshot of the dashboard, save it as `docs/dispatch-board.png`, and uncomment the line below)*
+<!-- ![HarvestLink GTA Dispatch Board](docs/dispatch-board.png) -->
+
+---
 
 ## Tech Stack
 
-* **Backend:** Python 3.11, FastAPI, SQLAlchemy, Pydantic, pytest
-* **Frontend:** React 18, TypeScript, Tailwind CSS, Vite
-* **Database & Infrastructure:** PostgreSQL 16 (with local SQLite fallback), Docker, Docker Compose
+* **Backend:** Python 3.11, FastAPI, SQLAlchemy, Pydantic, pytest[cite: 3, 11]
+* **Frontend:** React 18, TypeScript, Tailwind CSS, Vite[cite: 3, 9]
+* **Database & Infrastructure:** PostgreSQL 16 (with local SQLite fallback), Docker, Docker Compose[cite: 2, 3, 20]
 
 ## Quick Start
 
-### 1. Run Backend + PostgreSQL via Docker
-```bash
-docker-compose up --build
-```
-Interactive API documentation is available at `http://localhost:8000/docs`.
-
-### 2. Run Backend & Test Suite Locally (Without Docker)
+### 1. Run Backend & Test Suite Locally
 ```bash
 cd backend
 pip install -r requirements.txt
 pytest
 python seed.py
 uvicorn app.main:app --reload
-```
-
-### 3. Run Frontend Locally
-```bash
-cd frontend
-npm install
-npm run dev
-```
-Open `http://localhost:5173` to view the Downtown Toronto / Dundas corridor dispatch board.
-
-## Deployment (Render + Vercel)
-* **Backend (Render):** Root directory `backend`, Build command `pip install -r requirements.txt && python seed.py`, Start command `uvicorn app.main:app --host 0.0.0.0 --port $PORT`.
-* **Frontend (Vercel):** Root directory `frontend`, Environment Variable `VITE_API_URL=https://<your-render-service>.onrender.com/api`.
