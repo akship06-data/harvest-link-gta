@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: harvest
+      POSTGRES_PASSWORD: harvest_dev_password
+      POSTGRES_DB: harvestlink_gta
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U harvest -d harvestlink_gta"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://harvest:harvest_dev_password@db:5432/harvestlink_gta
+    depends_on:
+      db:
+        condition: service_healthy
+    command: sh -c "python seed.py && uvicorn app.main:app --host 0.0.0.0 --port 8000"
