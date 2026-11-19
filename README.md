@@ -18,18 +18,18 @@ This project was built as a learning exercise in geospatial matching, state-mach
 
 ## What’s Real vs. Simulated
 
-* **Status & Data (Simulated):** Pre-seeded with realistic fictional donor and pantry profiles around Yonge–Dundas and TMU (`backend/seed.py`) so the dispatch workflow can be tested out of the box[cite: 10].
-* **Geospatial Routing (Simulated / Straight-Line):** Calculates Haversine great-circle distance (`backend/app/matching.py`) rather than live street-network walking, transit, or driving routes[cite: 17].
-* **Food-Safety & Liability Guardrails (Modeled, Not Legal Compliance):** Input rules in `backend/app/schemas.py` are *informed by* Ontario's *Donation of Food Act, 1994* (S.O. 1994, c. 19) and Toronto Public Health DineSafe concepts—requiring sealed/commercial-source attestation and enforcing a minimum 2-hour window before expiration[cite: 18]. This is a technical modeling exercise, not legal or public-health certification.
-* **Backend, State Machine & Tests (Real Working Code):** Full FastAPI REST API, SQLAlchemy persistence, four-stage chain-of-custody tracking (`AVAILABLE -> CLAIMED -> PICKED_UP -> DELIVERED`)[cite: 19], React + TypeScript dispatch UI[cite: 9, 12], and automated `pytest` integration tests[cite: 15].
+* **Status & Data (Simulated):** Pre-seeded with realistic fictional donor and pantry profiles around Yonge–Dundas and TMU (`backend/seed.py`) so the dispatch workflow can be tested out of the box.
+* **Geospatial Routing (Simulated / Straight-Line):** Calculates Haversine great-circle distance (`backend/app/matching.py`) rather than live street-network walking, transit, or driving routes.
+* **Food-Safety & Liability Guardrails (Modeled, Not Legal Compliance):** Input rules in `backend/app/schemas.py` are *informed by* Ontario's *Donation of Food Act, 1994* (S.O. 1994, c. 19) and Toronto Public Health DineSafe concepts—requiring sealed/commercial-source attestation and enforcing a minimum 2-hour window before expiration. This is a technical modeling exercise, not legal or public-health certification.
+* **Backend, State Machine & Tests (Real Working Code):** Full FastAPI REST API, SQLAlchemy persistence, four-stage chain-of-custody tracking (`AVAILABLE -> CLAIMED -> PICKED_UP -> DELIVERED`), React + TypeScript dispatch UI, and automated `pytest` integration tests.
 
 ---
 
 ## Tech Stack
 
-* **Backend:** Python 3.11, FastAPI, SQLAlchemy, Pydantic, pytest[cite: 3, 11]
-* **Frontend:** React 18, TypeScript, Tailwind CSS, Vite[cite: 3, 9]
-* **Database & Infrastructure:** PostgreSQL 16 (with local SQLite fallback), Docker, Docker Compose[cite: 2, 3, 20]
+* **Backend:** Python 3.11, FastAPI, SQLAlchemy, Pydantic, pytest
+* **Frontend:** React 18, TypeScript, Tailwind CSS, Vite
+* **Database & Infrastructure:** PostgreSQL 16 (with local SQLite fallback), Docker, Docker Compose
 
 ---
 
