@@ -10,7 +10,7 @@ Walking along the **Yonge–Dundas Square, Victoria Street, and Downtown Toronto
 
 ## Context & Existing Ecosystem
 
-Large-scale food recovery in Toronto is already led by established organizations such as **Second Harvest** (and its **FoodRescue.ca** platform) and **Feed It Forward**. 
+Large-scale food recovery in Toronto is already led by established organizations such as **Second Harvest** (and its **FoodRescue.ca** platform) and **Feed It Forward**.
 
 This project was built as a learning exercise in geospatial matching, state-machine workflows, and domain-informed input validation—focused specifically on small-batch, same-day campus and neighborhood surplus (e.g., untouched event catering trays) rather than commercial grocery logistics.
 
@@ -25,18 +25,13 @@ This project was built as a learning exercise in geospatial matching, state-mach
 
 ---
 
-## Dispatch Board Preview
-
-*(Tip: Run the app locally, take a screenshot of the dashboard, save it as `docs/dispatch-board.png`, and uncomment the line below)*
-<!-- ![HarvestLink GTA Dispatch Board](docs/dispatch-board.png) -->
-
----
-
 ## Tech Stack
 
 * **Backend:** Python 3.11, FastAPI, SQLAlchemy, Pydantic, pytest[cite: 3, 11]
 * **Frontend:** React 18, TypeScript, Tailwind CSS, Vite[cite: 3, 9]
 * **Database & Infrastructure:** PostgreSQL 16 (with local SQLite fallback), Docker, Docker Compose[cite: 2, 3, 20]
+
+---
 
 ## Quick Start
 
