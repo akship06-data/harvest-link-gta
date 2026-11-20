@@ -1,0 +1,25 @@
+client_id = "efd46afeff29a9f1d05c7c1ff2ad2040"
+application_url = "https://example.com"
+embedded = true
+name = "harvestlink-rescue"
+
+[access_scopes]
+scopes = "read_products,write_products,read_inventory,write_inventory"
+
+[webhooks]
+api_version = "2027-01"
+
+  [[webhooks.subscriptions]]
+  uri = "/webhooks/app/uninstalled"
+  topics = [ "app/uninstalled" ]
+
+  [[webhooks.subscriptions]]
+  uri = "/webhooks/app/scopes_update"
+  topics = [ "app/scopes_update" ]
+
+[auth]
+redirect_urls = [ "https://example.com/api/auth" ]
+
+[build]
+include_config_on_deploy = true
+automatically_update_urls_on_dev = true
