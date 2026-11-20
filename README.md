@@ -16,12 +16,7 @@ This project was built as a learning exercise in geospatial matching, state-mach
 
 ---
 
-## What’s Real vs. Simulated
-
-* **Status & Data (Simulated):** Pre-seeded with realistic fictional donor and pantry profiles around Yonge–Dundas and TMU (`backend/seed.py`) so the dispatch workflow can be tested out of the box.
-* **Geospatial Routing (Simulated / Straight-Line):** Calculates Haversine great-circle distance (`backend/app/matching.py`) rather than live street-network walking, transit, or driving routes.
-* **Food-Safety & Liability Guardrails (Modeled, Not Legal Compliance):** Input rules in `backend/app/schemas.py` are *informed by* Ontario's *Donation of Food Act, 1994* (S.O. 1994, c. 19) and Toronto Public Health DineSafe concepts—requiring sealed/commercial-source attestation and enforcing a minimum 2-hour window before expiration. This is a technical modeling exercise, not legal or public-health certification.
-* **Backend, State Machine & Tests (Real Working Code):** Full FastAPI REST API, SQLAlchemy persistence, four-stage chain-of-custody tracking (`AVAILABLE -> CLAIMED -> PICKED_UP -> DELIVERED`), React + TypeScript dispatch UI, and automated `pytest` integration tests.
+* **Merchant Intake App (Shopify Embedded App — Real Working Code):** Built an embedded Shopify Admin app (`shopify-merchant-app/`) using React Router, TypeScript, and Polaris Web Components that queries live store inventory via the Shopify Admin GraphQL API and executes `tagsAdd` / `metafieldsSet` mutations to flag near-expiry items (`< 24h`) for pickup.
 
 ---
 
